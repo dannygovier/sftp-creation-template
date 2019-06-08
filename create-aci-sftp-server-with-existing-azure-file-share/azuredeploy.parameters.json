@@ -14,8 +14,11 @@
     "existingStorageAccountName": {
       "value": "GET-PREREQ-existingStgAcctName"
     },
+    "existingUserConfFileShareName": {
+      "value": "GET-PREREQ-existingUserConfFileShareName"
+    },
     "existingFileShareName": {
-      "value": "GET-PREREQ-existingFileShareName"
+      "value": "GET-PREREQ-existingStorageFileShareName"
     }
   }
 }

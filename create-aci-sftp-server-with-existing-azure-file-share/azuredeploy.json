@@ -14,7 +14,13 @@
                 "description": "Name of existing storage account"
             }
         },
-        "existingFileShareName": {
+        "existingUserConfFileShareName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of existing file share to be mounted"
+            }
+        },
+        "existingStorageFileShareName": {
             "type": "string",
             "metadata": {
                 "description": "Name of existing file share to be mounted"
@@ -92,7 +98,7 @@
                             "volumeMounts": [
                                 {
                                     "mountPath": "[concat('/home/', parameters('sftpUser'), '/upload')]",
-                                    "name": "sftpvolume",
+                                    "name": "sftpstoragevolume",
                                     "readOnly": false
                                 }
                             ]
@@ -112,10 +118,19 @@
                 "restartPolicy": "OnFailure",
                 "volumes": [
                     {
-                        "name": "sftpvolume",
+                        "name": "sftpuserconfvolume",
                         "azureFile": {
                             "readOnly": false,
-                            "shareName": "[parameters('existingFileShareName')]",
+                            "shareName": "[parameters('existingUserConfFileShareName')]",
+                            "storageAccountName": "[parameters('existingStorageAccountName')]",
+                            "storageAccountKey": "[listKeys(variables('storageAccountId'),'2018-02-01').keys[0].value]"
+                        }
+                    },
+                    {
+                        "name": "sftpstoragevolume",
+                        "azureFile": {
+                            "readOnly": false,
+                            "shareName": "[parameters('existingStorageFileShareName')]",
                             "storageAccountName": "[parameters('existingStorageAccountName')]",
                             "storageAccountKey": "[listKeys(variables('storageAccountId'),'2018-02-01').keys[0].value]"
                         }
