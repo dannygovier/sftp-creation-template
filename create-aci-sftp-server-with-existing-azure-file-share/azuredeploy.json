@@ -97,6 +97,10 @@
                             ],
                             "volumeMounts": [
                                 {
+                                    "mountPath": "/etc/sftp:ro",
+                                    "name": "sftpuserconfvolume",
+                                    "readOnly": false
+                                },                                {
                                     "mountPath": "[concat('/home/', parameters('sftpUser'), '/upload')]",
                                     "name": "sftpstoragevolume",
                                     "readOnly": false
