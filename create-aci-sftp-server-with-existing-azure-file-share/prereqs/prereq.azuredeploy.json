@@ -8,7 +8,8 @@
     "cliContainerName": "create-share",
     "cliContainerGroupName": "create-share-group",
     "cliContainerImage": "microsoft/azure-cli:latest",
-    "fileShareName": "sftpshare"
+    "fileShareName1": "sftpsonfigshare",
+    "fileShareName2": "sftpstorageshare"
   },
   "resources": [
     {
@@ -36,13 +37,18 @@
                     "name": "[variables('cliContainerName')]",
                     "properties": {
                         "image": "[variables('cliContainerImage')]",
-                        "command": [
-                            "az",
-                            "storage",
-                            "share",
-                            "create",
-                            "--name",
-                            "[variables('fileShareName')]"
+                        "copy": [
+                            {
+                                "name": "command",
+                                "command": [
+                                    "az",
+                                    "storage",
+                                    "share",
+                                    "create",
+                                    "--name",
+                                    "[concat(variables('fileShareName'),copyIndex('command'))]"
+                                ]
+                            }
                         ],
                         "environmentVariables": [
                             {
